@@ -9,7 +9,7 @@ Ce dépôt grandit chaque semaine. La semaine 1 met en place le cadrage du proje
 ### 1. Cloner le dépôt
 
 ```bash
-git clone <URL_DU_DEPOT>
+git clone https://github.com/AbdessamadR/sentiment-app.git
 cd sentiment-app
 ```
 
@@ -42,7 +42,7 @@ source .venv/bin/activate
 ### 4. Installer les dépendances
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements.lock
 ```
 
 ## Vérifier son installation
@@ -56,10 +56,10 @@ python scripts/check_setup.py
 Lancer les tests automatisés :
 
 ```bash
-pytest -q
+python -m pytest -q
 ```
 
-La démarche complète de test, étape par étape, est disponible dans le fichier `TESTS.md`.
+La démarche complète de test est disponible dans `TESTS.md`.
 
 ## Structure du projet
 
@@ -67,52 +67,45 @@ La démarche complète de test, étape par étape, est disponible dans le fichie
 sentiment-app/
 │
 ├── app/                    # Code source de l'application
-│
 ├── data/                   # Données du projet
-│   └── sample_reviews.csv  # Jeu de données d'exemple
-│
+│   └── sample_reviews.csv
 ├── docs/
-│   └── cadrage/             # Fiches de cadrage des cas d'usage
+│   └── cadrage/             # Fiches de cadrage
 │       ├── BANQUE-DE-CAS.md
 │       ├── cas1-pharmacie.md
 │       ├── cas2-reglement.md
 │       ├── cas3-avis-negatifs.md
 │       ├── EXEMPLE-corrige.md
 │       └── TEMPLATE.md
-│
 ├── models/                  # Modèles entraînés
-│
 ├── scripts/                 # Scripts utilitaires
 │   └── check_setup.py
-│
 ├── tests/                   # Tests automatisés
-│
-├── .env.example             # Exemple de configuration
-├── .gitignore               # Fichiers exclus de Git
-├── requirements.txt         # Dépendances Python
-├── TESTS.md                 # Guide d'exécution des tests
-└── README.md                # Documentation principale
+├── .env.example
+├── .gitignore
+├── requirements.txt
+├── requirements.lock
+├── TESTS.md
+└── README.md
 ```
 
 ## Cas d'utilisation étudiés
 
-Trois cas d'utilisation ont été étudiés pendant la première semaine :
-
 | Cas | Approche envisagée | Objectif |
 |---|---|---|
 | Gestion des ordonnances en pharmacie | Règles métier | Vérifier les ordonnances et détecter les informations manquantes |
-| Questions sur le règlement scolaire | RAG | Répondre aux questions en s'appuyant sur les documents de référence |
+| Questions sur le règlement scolaire | RAG | Répondre aux questions à partir des documents de référence |
 | Analyse des avis négatifs | Machine Learning | Classifier et prioriser les avis clients négatifs |
 
 Les objectifs et critères d'acceptation sont détaillés dans `docs/cadrage/`.
 
 ## Configuration
 
-Un fichier `.env.example` est fourni comme modèle de configuration.
+Un fichier `.env.example` est fourni comme modèle.
 
-Pour créer votre propre fichier de configuration :
+Pour créer votre propre fichier :
 
-```bash
+```cmd
 copy .env.example .env
 ```
 
@@ -126,19 +119,19 @@ Le fichier `.env` contient les paramètres locaux et ne doit pas être envoyé s
 
 ## Tests
 
-Pour exécuter tous les tests :
+Tous les tests :
 
 ```bash
-pytest -q
+python -m pytest -q
 ```
 
-Pour exécuter uniquement les tests de cadrage :
+Tests de cadrage :
 
 ```bash
-pytest tests/test_cadrage.py -q
+python -m pytest tests/test_cadrage.py -q
 ```
 
-Pour vérifier la configuration de l'environnement :
+Vérification de l'environnement :
 
 ```bash
 python scripts/check_setup.py
@@ -146,7 +139,7 @@ python scripts/check_setup.py
 
 ## Gestion du projet avec Git
 
-Chaque membre du binôme doit effectuer des contributions réelles et les enregistrer avec sa propre identité Git.
+Chaque membre du binôme doit effectuer des contributions réelles avec sa propre identité Git.
 
 Vérifier les contributions :
 
@@ -154,7 +147,7 @@ Vérifier les contributions :
 git shortlog -sn --all
 ```
 
-Consulter l'historique des commits :
+Consulter l'historique :
 
 ```bash
 git log --oneline
