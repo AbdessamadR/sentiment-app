@@ -1,0 +1,2 @@
+Le modèle Bag-of-Words représente les avis comme un ensemble de mots sans tenir suffisamment compte de leur ordre ni de leur contexte. Il a donc du mal à détecter les retournements de sentiment introduits par des expressions comme « sauf que », qui changent le sens global du commentaire. Les erreurs observées sur les avis mitigés montrent qu'une approche plus avancée, capable de mieux comprendre le contexte linguistique, serait nécessaire.
+
