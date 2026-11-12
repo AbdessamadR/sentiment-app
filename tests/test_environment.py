@@ -1,4 +1,5 @@
 """Tests d'environnement du TP1 : Python, paquets, structure, .gitignore."""
+
 import importlib
 import sys
 from pathlib import Path
@@ -35,11 +36,16 @@ def test_required_file_exists(root: Path, filename):
 
 
 def test_requirements_pins_versions(root: Path):
-    lines = [l.strip() for l in (root / "requirements.txt").read_text().splitlines()]
-    lines = [l for l in lines if l and not l.startswith("#")]
-    assert lines, "requirements.txt est vide"
-    for line in lines:
-        assert "==" in line, f"version non figée : {line}"
+    lignes = [
+        ligne.strip()
+        for ligne in (root / "requirements.txt").read_text().splitlines()
+    ]
+    lignes = [ligne for ligne in lignes if ligne and not ligne.startswith("#")]
+
+    assert lignes, "requirements.txt est vide"
+
+    for ligne in lignes:
+        assert "==" in ligne, f"version non figée : {ligne}"
 
 
 @pytest.mark.parametrize("pattern", [".venv/", "__pycache__/", ".env", "models/", "mlruns/"])
@@ -53,8 +59,15 @@ def test_no_real_env_file_committed(root: Path):
     git_dir = root / ".git"
     if not git_dir.exists():
         pytest.skip("pas un dépôt Git")
+
     import subprocess
 
-    tracked = subprocess.run(["git", "ls-files"], cwd=root, capture_output=True, text=True).stdout.split()
+    tracked = subprocess.run(
+        ["git", "ls-files"],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    ).stdout.split()
+
     assert ".env" not in tracked, ".env est suivi par Git : git rm --cached .env"
     assert not any(p.startswith(".venv/") for p in tracked), ".venv/ est suivi par Git"

@@ -1,4 +1,3 @@
-
 """API FastAPI pour la classification de sentiments."""
 
 import logging
@@ -95,12 +94,12 @@ async def predict(request: PredictRequest):
     try:
         result = clf.predict(request.text)
 
-    except Exception:
+    except Exception as exc:
         logger.exception("Erreur lors de la prédiction")
         raise HTTPException(
             status_code=500,
             detail="Erreur interne du serveur",
-        )
+        ) from exc
 
     logger.info(
         "predict: %r -> %s (%.2f)",

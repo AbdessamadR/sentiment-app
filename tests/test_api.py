@@ -3,18 +3,25 @@
 Ignorés tant que models/sentiment.joblib n'existe pas sur le poste (la CI
 l'entraîne avant pytest : voir .github/workflows/ci.yml).
 """
+
 from pathlib import Path
 
 import pytest
 
+
 MODELE = Path(__file__).resolve().parents[1] / "models" / "sentiment.joblib"
-pytestmark = pytest.mark.skipif(not MODELE.exists(), reason="modèle non produit : python src/train.py")
+pytestmark = pytest.mark.skipif(
+    not MODELE.exists(),
+    reason="modèle non produit : python src/train.py",
+)
 
 
 @pytest.fixture(scope="module")
 def client():
     from fastapi.testclient import TestClient
+
     from api.main import app
+
     with TestClient(app) as c:  # le "with" déclenche lifespan (chargement du modèle)
         yield c
 
@@ -34,7 +41,10 @@ def test_health(client):
 
 
 def test_predict_positif(client):
-    r = client.post("/predict", json={"text": "Livraison rapide, produit conforme, très satisfait"})
+    r = client.post(
+        "/predict",
+        json={"text": "Livraison rapide, produit conforme, très satisfait"},
+    )
     assert r.status_code == 200
     body = r.json()
     assert body["label"] == "POSITIVE"
@@ -42,7 +52,10 @@ def test_predict_positif(client):
 
 
 def test_predict_negatif(client):
-    r = client.post("/predict", json={"text": "Produit cassé et service injoignable, à fuir"})
+    r = client.post(
+        "/predict",
+        json={"text": "Produit cassé et service injoignable, à fuir"},
+    )
     assert r.status_code == 200
     assert r.json()["label"] == "NEGATIVE"
 
