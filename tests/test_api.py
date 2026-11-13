@@ -8,7 +8,6 @@ from pathlib import Path
 
 import pytest
 
-
 MODELE = Path(__file__).resolve().parents[1] / "models" / "sentiment.joblib"
 pytestmark = pytest.mark.skipif(
     not MODELE.exists(),
